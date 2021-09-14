@@ -36,7 +36,6 @@ public class EmfUtils {
     }
 
 
-
     public static void main(String[] args) throws IOException {
 
         String emfFilePath = getFilePath("emf", "81b7d45d-e25e-43fc-b7cb-79b437306f6d.emf");
@@ -48,9 +47,10 @@ public class EmfUtils {
 
     /**
      * emf 转png
-     * @param emfFilePath
-     * @param pngFilePath
-     * @throws IOException
+     *
+     * @param emfFilePath emf文件路径
+     * @param pngFilePath png文件路径
+     * @throws IOException {@link IOException}
      */
     private static void emf2png(String emfFilePath, String pngFilePath) throws IOException {
         File emfFile = new File(emfFilePath);
@@ -63,8 +63,8 @@ public class EmfUtils {
             int height = Units.pointsToPixel(dim.getHeight());
             double max = Math.max(width, height);
             if (max > 1500) {
-                width *= 1500/max;
-                height *= 1500/max;
+                width *= 1500 / max;
+                height *= 1500 / max;
             }
             BufferedImage bufImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = bufImg.createGraphics();
@@ -72,10 +72,10 @@ public class EmfUtils {
             g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-            emf.draw(g, new Rectangle2D.Double(0,0,width,height));
+            emf.draw(g, new Rectangle2D.Double(0, 0, width, height));
             g.dispose();
 
-            ImageIO.write(bufImg, "PNG",new File(pngFilePath));
+            ImageIO.write(bufImg, "PNG", new File(pngFilePath));
         }
     }
 
